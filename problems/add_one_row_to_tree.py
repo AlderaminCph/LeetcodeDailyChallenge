@@ -47,4 +47,18 @@ class Solution:
     def addOneRow(
         self, root: Optional[TreeNode], val: int, depth: int
     ) -> Optional[TreeNode]:
-        """ """
+        def dfs(node, depth, d):
+            if not node:
+                return None
+            elif d == 1:
+                temp = TreeNode(val, left=node)
+                return temp
+            elif depth == d - 1:
+                node.left = TreeNode(val, left=node.left)
+                node.right = TreeNode(val, right=node.right)
+                return node
+            dfs(node.left, depth + 1, d)
+            dfs(node.right, depth + 1, d)
+            return node
+
+        return dfs(root, 1, depth)
