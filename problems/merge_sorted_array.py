@@ -42,7 +42,7 @@ Note that because m = 0, there are no elements in nums1. The 0 is only there to
  ensure the merge result can fit in nums1.
 
 >>> Solution().merge([-1,0,0,3,3,3,0,0,0],6,[1,2,2],3)
-[-1,0,0,1,2,2,3,3,3]
+[-1, 0, 0, 1, 2, 2, 3, 3, 3]
 
 """
 from typing import List
@@ -52,10 +52,10 @@ import doctest
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:  # noqa
         nums2.extend(nums1[0:m])
-        nums2.sort()
         nums2[:] = (value for value in nums2 if value != 0)
         for i in range(len(nums2)):
             nums1[i] = nums2[i]
+        nums1.sort()
         return nums1
 
 
