@@ -15,7 +15,7 @@ the input array in-place with O(1) extra memory.
 Example 1:
 
 >>> Solution().removeElement([3,2,2,3],3)
-2, [2,2,_,_]
+(2, [2, 2])
 
 Explanation: Your function should return k = 2, with the first two elements of
 nums being 2.
@@ -24,13 +24,17 @@ underscores).
 
 Example 2:
 
-Input: nums = [0,1,2,2,3,0,4,2], val = 2
-Output: 5, nums = [0,1,4,0,3,_,_,_]
+>>> Solution().removeElement([0,1,2,2,3,0,4,2],2)
+(5, [0, 1, 3, 0, 4])
+
 Explanation: Your function should return k = 5, with the first five elements
 of nums containing 0, 0, 1, 3, and 4.
 Note that the five elements can be returned in any order.
 It does not matter what you leave beyond the returned k (hence they are
 underscores).
+
+>>> Solution().removeElement([3,2,2,3],3)
+(2, [2, 2])
 """
 from typing import List
 import doctest
@@ -38,13 +42,13 @@ import doctest
 
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        k = 0
-        for i in range(len(nums)):
+        i = 0
+        while i < len(nums):
             if nums[i] == val:
-                k += 1
-        nums = [it for it in nums if it != val]
-        nums.extend(["_"] * k)
-        return k, nums
+                nums.remove(nums[i])
+            else:
+                i += 1
+        return len(nums), nums
 
 
 doctest.testmod()
