@@ -47,15 +47,13 @@ def max_profit(prices: List[int]) -> int:
     """
     # check if prices are in descending order
     profit = 0
-    if all(earlier >= later for earlier, later in zip(prices, prices[1:])):
-        return profit
     left_pointer, right_pointer = 0, 1
     while right_pointer < len(prices):
         current_profit = prices[right_pointer] - prices[left_pointer]
         if current_profit > 0:
             profit = max(current_profit, profit)
         else:
-            left_pointer += 1
+            left_pointer = right_pointer
         right_pointer += 1
     return profit
 
