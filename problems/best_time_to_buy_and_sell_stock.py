@@ -7,11 +7,12 @@ choosing a different day in the future to sell that stock.
 
 Return the maximum profit you can achieve from this transaction. If you cannot
 achieve any profit, return 0.
-
+>>> max_profit([2,4,1])
+2
 
 Example 1:
 
->>> Solution().maxProfit([7,1,5,3,6,4])
+>>> max_profit([7,1,5,3,6,4])
 5
 
 Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6),
@@ -21,15 +22,15 @@ buy before you sell.
 
 Example 2:
 
->>> Solution().maxProfit([7,6,4,3,1])
+>>> max_profit([7,6,4,3,1])
 0
 
 Explanation: In this case, no transactions are done and the max profit = 0.
 
->>> Solution().maxProfit([1,2])
+>>> max_profit([1,2])
 1
 
->>> Solution().maxProfit([1,4,2])
+>>> max_profit([1,4,2])
 3
 """
 from typing import List
@@ -38,47 +39,49 @@ import collections
 from itertools import compress
 
 
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        # check if prices are in descending order
-        if all(earlier >= later for earlier, later in zip(prices, prices[1:])):
-            return 0
-        else:
-            newprices = collections.deque(prices)
-            newprices.appendleft(-1)
-            newprices = list(newprices)
-            mask = [
-                earlier >= later
+
+def max_profit(prices: List[int]) -> int:
+    """
+    Return maximum profit from an array prices
+    """
+    # check if prices are in descending order
+    if all(earlier >= later for earlier, later in zip(prices, prices[1:])):
+        profit = 0
+        return profit
+
+    newprices = collections.deque(prices)
+    newprices.appendleft(-1)
+    newprices = list(newprices)
+    mask = [
+        earlier >= later
+        for earlier, later in zip(newprices, newprices[1:])
+    ]
+    if newprices[1] <= newprices[2]:
+        mask[0] = True
+    if (list(compress(prices, mask)) != []
+            and list(compress(prices, mask)).index(
+                min(list(compress(prices, mask))))
+            != len(list(compress(prices, mask)))):
+        min_price = list(compress(prices, mask))[0]
+    else:
+        min_price = min(prices)
+    max_prices = list(
+        compress(
+            prices,
+            [
+                earlier <= later
                 for earlier, later in zip(newprices, newprices[1:])
-            ]
-            if (
-                list(compress(prices, mask)) != []
-                and list(compress(prices, mask)).index(
-                    min(list(compress(prices, mask)))
-                )
-                != len(list(compress(prices, mask))) - 1
-            ):
-                min_price = min(list(compress(prices, mask)))
-            else:
-                min_price = min(prices)
-            # print('HERE ',min_price)
-            max_prices = list(
-                compress(
-                    prices,
-                    [
-                        earlier <= later
-                        for earlier, later in zip(newprices, newprices[1:])
-                    ],
-                )
-            )
-            max_prices.sort()
+            ],
+        )
+    )
+    max_prices.sort()
+    max_price = max_prices.pop()
+    for i, val in enumerate(prices):
+        if val == max_price:
+            if i > prices.index(min_price):
+                profit = max_price - min_price
+                return profit
             max_price = max_prices.pop()
-            for i, val in enumerate(prices):
-                if val == max_price:
-                    if i > prices.index(min_price):
-                        return max_price - min_price
-                    else:
-                        max_price = max_prices.pop()
 
 
 doctest.testmod()
