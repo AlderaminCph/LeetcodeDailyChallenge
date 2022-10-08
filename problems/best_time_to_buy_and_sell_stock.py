@@ -25,6 +25,12 @@ Example 2:
 0
 
 Explanation: In this case, no transactions are done and the max profit = 0.
+
+>>> Solution().maxProfit([1,2])
+1
+
+>>> Solution().maxProfit([1,4,2])
+3
 """
 from typing import List
 import doctest
@@ -34,10 +40,8 @@ from itertools import compress
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        # check if prices are not in descending order
-        if not all(
-            earlier >= later for earlier, later in zip(prices, prices[1:])
-        ):
+        # check if prices are in descending order
+        if all(earlier >= later for earlier, later in zip(prices, prices[1:])):
             return 0
         else:
             newprices = collections.deque(prices)
@@ -47,7 +51,17 @@ class Solution:
                 earlier >= later
                 for earlier, later in zip(newprices, newprices[1:])
             ]
-            min_price = min(list(compress(prices, mask)))
+            if (
+                list(compress(prices, mask)) != []
+                and list(compress(prices, mask)).index(
+                    min(list(compress(prices, mask)))
+                )
+                != len(list(compress(prices, mask))) - 1
+            ):
+                min_price = min(list(compress(prices, mask)))
+            else:
+                min_price = min(prices)
+            # print('HERE ',min_price)
             max_prices = list(
                 compress(
                     prices,
