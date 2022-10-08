@@ -37,7 +37,7 @@ class Solution:
         for i in little_arr:
             if i not in hashtable:
                 hashtable[i] = 0
-            if i in big_arr:
+            if i in big_arr and hashtable[i] < big_arr.count(i):
                 hashtable[i] += 1
         res = []
         for key, val in hashtable.items():
