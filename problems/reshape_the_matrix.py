@@ -16,12 +16,12 @@ the new reshaped matrix; Otherwise, output the original matrix.
 Example 1:
 
 >>> Solution().matrixReshape([[1,2],[3,4]], 1, 4)
-[[1,2,3,4]]
+[[1, 2, 3, 4]]
 
 Example 2:
 
 >>> Solution().matrixReshape([[1,2],[3,4]], 2, 4)
-[[1,2],[3,4]]
+[[1, 2], [3, 4]]
 """
 from typing import List
 import doctest
@@ -38,11 +38,12 @@ class Solution:
         elements = []
         for row in range(rows_num):
             elements.extend(mat[row])
+        elements = elements[::-1]
         reshaped_mat = []
         for i in range(r):
             new_row = []
             for j in range(c):
-                new_row.append(elements[::-1].pop())
+                new_row.append(elements.pop())
             reshaped_mat.append(new_row)
         return reshaped_mat
 
