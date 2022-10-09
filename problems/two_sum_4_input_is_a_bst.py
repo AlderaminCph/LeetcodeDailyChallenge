@@ -27,6 +27,55 @@ class TreeNode:
         self.left = left
         self.right = right
 
+    def to_binary_tree(items: List[int]):
+        """Create BT from list of values."""
+        n = len(items)
+        if n == 0:
+            return None
+
+        def inner(index: int = 0) -> TreeNode:
+            """Closure function using recursion bo build tree"""
+            if n <= index or items[index] is None:
+                return None
+
+            node = TreeNode(items[index])
+            node.left = inner(2 * index + 1)
+            node.right = inner(2 * index + 2)
+            return node
+
+            return inner()
+
+    def create_list(tree, templist=[]):
+        """
+        >>> tree = TreeNode(2, TreeNode(29, TreeNode(26)),\
+        TreeNode(4, None, TreeNode(2, TreeNode(9))))
+        >>> TreeNode.create_list(tree)
+        [2, 29, 4, 26, None, None, 2, None, None, \
+None, None, None, None, 9, None]
+        """
+        items = []
+        queue = [tree]
+
+        while queue:
+            copy = queue[:]
+            queue = []
+
+            for item in copy:
+                if item is None:
+                    items.append(None)
+                    queue.append(None)
+                    queue.append(None)
+                else:
+                    items.append(item.val)
+                    queue.append(item.left)
+                    queue.append(item.right)
+
+            if all((x is None for x in queue)):
+                break
+        if items[-1] is None:
+            items = items[:-1]
+        return items
+
 
 def inorder(root: Optional[TreeNode]) -> List[int]:
     """
@@ -40,7 +89,7 @@ def inorder(root: Optional[TreeNode]) -> List[int]:
     inorder(root.right)
 
 
-def findTarget(root: Optional[TreeNode], k: int) -> bool:
+def find_target(root: Optional[TreeNode], k: int) -> bool:
     """
     Return True if there exist two elements in the BST such that their sum is
     equal to the given target.
