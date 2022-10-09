@@ -9,7 +9,7 @@ it as shown:
 Example 1:
 
 >>> Solution().generate(5)
-[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+[[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]
 
 Example 2:
 
@@ -31,7 +31,8 @@ class Solution:
             for i in range(2, numRows):
                 row = [1]
                 for j in range(len(res[i - 1]) - 1):
-                    row.append(sum(res[i - 1][j], res[i - 1][j + 1]))
+                    new_element = res[i - 1][j] + res[i - 1][j + 1]
+                    row.append(new_element)
                 row.append(1)
                 res.append(row)
         return res
