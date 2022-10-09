@@ -43,50 +43,7 @@ class TreeNode:
             node.right = inner(2 * index + 2)
             return node
 
-            return inner()
-
-    def create_list(tree, templist=[]):
-        """
-        >>> tree = TreeNode(2, TreeNode(29, TreeNode(26)),\
-        TreeNode(4, None, TreeNode(2, TreeNode(9))))
-        >>> TreeNode.create_list(tree)
-        [2, 29, 4, 26, None, None, 2, None, None, \
-None, None, None, None, 9, None]
-        """
-        items = []
-        queue = [tree]
-
-        while queue:
-            copy = queue[:]
-            queue = []
-
-            for item in copy:
-                if item is None:
-                    items.append(None)
-                    queue.append(None)
-                    queue.append(None)
-                else:
-                    items.append(item.val)
-                    queue.append(item.left)
-                    queue.append(item.right)
-
-            if all((x is None for x in queue)):
-                break
-        if items[-1] is None:
-            items = items[:-1]
-        return items
-
-
-def inorder(root: Optional[TreeNode]) -> List[int]:
-    """
-    Convert Binary Search Tree to an ascending order integer array.
-    """
-    array = []
-    if not root:
-        return array
-    inorder(root.left)
-    array.append(root.val)
-    inorder(root.right)
+        return inner()
 
 
 def find_target(root: Optional[TreeNode], k: int) -> bool:
@@ -94,7 +51,24 @@ def find_target(root: Optional[TreeNode], k: int) -> bool:
     Return True if there exist two elements in the BST such that their sum is
     equal to the given target.
     """
+    array = []
+
+    def inorder(root: Optional[TreeNode]) -> List[int]:
+        """
+        Convert Binary Search Tree to an ascending order integer array.
+        >>> inorder(TreeNode(5,TreeNode(3,TreeNode(2),TreeNode(4)),\
+        TreeNode(6,None, TreeNode(7))))
+        [2, 3, 4, 5, 6, 7]
+        """
+        if not root:
+            return
+        inorder(root.left)
+        array.append(root.val)
+        inorder(root.right)
+        return array
+
     array = inorder(root)  # sorted array
+
     left, right = 0, len(array) - 1  # apply 2 pointer approach
 
     while left < right:
