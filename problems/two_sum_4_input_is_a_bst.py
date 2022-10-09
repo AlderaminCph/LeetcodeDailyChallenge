@@ -79,4 +79,4 @@ def find_target(root: Optional[TreeNode], k: int) -> bool:
             left += 1
         else:
             return True
-        return False
+    return False
