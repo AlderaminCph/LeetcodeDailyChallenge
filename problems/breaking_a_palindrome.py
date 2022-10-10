@@ -35,4 +35,15 @@ palindrome, so return an empty string.
 
 class Solution:
     def breakPalindrome(self, palindrome: str) -> str:
-        """ """
+        if len(palindrome) < 2:
+            return ""
+        letters = list(palindrome)  # in order to be able to change letters
+        mid = len(palindrome) // 2
+        # change the first non 'a' to 'a'
+        for i in range(mid):
+            if letters[i] != "a":
+                letters[i] = "a"
+                return "".join(letters)
+        # if there are no non 'a'
+        letters[-1] = "b"
+        return "".join(letters)
