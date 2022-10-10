@@ -17,20 +17,23 @@ A string a is lexicographically smaller than a string b (of the same length) if
 
 Example 1:
 
-Input: palindrome = "abccba"
-Output: "aaccba"
+>>> Solution().breakPalindrome("abccba")
+"aaccba"
+
 Explanation: There are many ways to make "abccba" not a palindrome,
 such as "zbccba", "aaccba", and "abacba".
 Of all the ways, "aaccba" is the lexicographically smallest.
 
 Example 2:
 
-Input: palindrome = "a"
-Output: ""
+>>> Solution().breakPalindrome("a")
+""
+
 Explanation: There is no way to replace a single character to make "a" not a
 palindrome, so return an empty string.
 
 """
+import doctest
 
 
 class Solution:
@@ -47,3 +50,5 @@ class Solution:
         # if there are no non 'a'
         letters[-1] = "b"
         return "".join(letters)
+
+doctest.testmod()
