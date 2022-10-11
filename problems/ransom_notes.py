@@ -36,4 +36,4 @@ def canConstruct(ransomNote: str, magazine: str) -> bool:
     return False
 
 
-doctest.tetsmod()
+doctest.testmod()
