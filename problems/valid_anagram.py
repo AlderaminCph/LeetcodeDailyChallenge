@@ -14,7 +14,7 @@ True
 
 Example 2:
 
-isAnagram("rat", "car")
+>>> isAnagram("rat", "car")
 False
 """
 import doctest
