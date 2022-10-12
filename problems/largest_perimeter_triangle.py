@@ -19,7 +19,7 @@ from typing import List
 import doctest
 
 
-def largestPerimeter(self, nums: List[int]) -> int:
+def largestPerimeter(nums: List[int]) -> int:
     nums.sort(reverse=True)
 
     if len(nums) > 2 and nums[0] >= nums[1] + nums[2]:
