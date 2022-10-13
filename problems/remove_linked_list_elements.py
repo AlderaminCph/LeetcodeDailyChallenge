@@ -33,10 +33,13 @@ class Solution:
     def removeElements(
         self, head: Optional[ListNode], val: int
     ) -> Optional[ListNode]:
+        dummy_node = ListNode(None, head)
         current_node = head
+        prev_node = dummy_node
         while current_node:
             if current_node.val == val:
                 current_node.val = current_node.next.val
                 current_node.next = current_node.next.next
+            prev_node = current_node
             current_node = current_node.next
-        return current_node
+        return prev_node
