@@ -38,8 +38,9 @@ class Solution:
         prev_node = dummy_node
         while current_node:
             if current_node.val == val:
+                dummy_node.next = prev_node
                 current_node.val = current_node.next.val
                 current_node.next = current_node.next.next
             prev_node = current_node
             current_node = current_node.next
-        return prev_node
+        return dummy_node.next
