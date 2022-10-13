@@ -54,10 +54,5 @@ class Solution:
         :type node: ListNode
         :rtype: void Do not return anything, modify node in-place instead.
         """
-        prev_node = ListNode(None)
-        current_node = head
-        while current_node.val != node.val:
-            prev_node = current_node
-            current_node = current_node.next
-        if prev_node:
-            prev_node.next = current_node.next
+        node.val = node.next.val
+        node.next = node.next.next
