@@ -18,8 +18,9 @@ at most k characters.
 
 Example 1:
 
-Input: s = "aaabcccd", k = 2
-Output: 4
+>>> Solution().getLengthOfOptimalCompression("aaabcccd", 2)
+4
+
 Explanation: Compressing s without deleting anything will give us "a3bc3d" of
 length 6. Deleting any of the characters 'a' or 'c' would at most decrease the
 length of the compressed string to 5, for instance delete 2 'a' then we will
@@ -29,18 +30,21 @@ length 4.
 
 Example 2:
 
-Input: s = "aabbaa", k = 2
-Output: 2
+>>> Solution().getLengthOfOptimalCompression("aabbaa", 2)
+2
+
 Explanation: If we delete both 'b' characters, the resulting compressed string
 would be "a4" of length 2.
 
 Example 3:
 
-Input: s = "aaaaaaaaaaa", k = 0
-Output: 3
+>>> Solution().getLengthOfOptimalCompression("aaaaaaaaaaa", 0)
+3
+
 Explanation: Since k is zero, we cannot delete anything. The compressed string
 is "a11" of length 3.
 """
+import doctest
 
 
 class Solution:
@@ -59,11 +63,15 @@ class Solution:
                 return 2
             return 3
 
+        cache = {}
         INF = 10**20
 
         def getMin(index, last_char, run, left):
             if index == N:
                 return f(run)
+            key = (index, last_char, run, left)
+            if key in cache:
+                return cache[key]
             best = INF
             if s[index] == last_char:
                 best = min(best, getMin(index + 1, last_char, run + 1, left))
@@ -72,11 +80,15 @@ class Solution:
                         best, getMin(index + 1, last_char, run, left - 1)
                     )
             else:
-                best = min(best, getMin(index + 1, s[index], 1, left + f(run)))
+                best = min(best, getMin(index + 1, s[index], 1, left) + f(run))
                 if left > 0:
                     best = min(
                         best, getMin(index + 1, last_char, run, left - 1)
                     )
+            cache[key] = best
             return best
 
         return getMin(0, "", 0, k)
+
+
+doctest.testmod()
