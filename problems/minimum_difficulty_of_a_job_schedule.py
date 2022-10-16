@@ -53,16 +53,10 @@ class Solution:
 
         @lru_cache(None)
         def dp(index, remain_days):
-            if remain_days == 0:
-                if index == n:
-                    return 0  # valid scenario
-                else:
-                    return sys.maxsize  # invalid
-            if index == n:
-                if remain_days == 0:
-                    return 0
-                else:
-                    return sys.maxsize
+            if remain_days == 0 and index == 0 or index == n and  remain_days == 0:
+                return 0  # valid scenario
+            elif remain_days == 0 and index != n or index == n and remain_days != 0:
+                return sys.maxsize  # invalid
 
             ans = sys.maxsize
             current_max = 0
