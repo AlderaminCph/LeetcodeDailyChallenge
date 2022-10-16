@@ -16,28 +16,32 @@ for the jobs return -1.
 
 Example 1:
 
-Input: jobDifficulty = [6,5,4,3,2,1], d = 2
-Output: 7
+>>> Solution().minDifficulty([6,5,4,3,2,1], 2)
+7
+
 Explanation: First day you can finish the first 5 jobs, total difficulty = 6.
 Second day you can finish the last job, total difficulty = 1.
 The difficulty of the schedule = 6 + 1 = 7
 
 Example 2:
 
-Input: jobDifficulty = [9,9,9], d = 4
-Output: -1
+>>> Solution().minDifficulty([9,9,9], 4)
+-1
+
 Explanation: If you finish a job per day you will still have a free day. you
 cannot find a schedule for the given jobs.
 
 Example 3:
 
-Input: jobDifficulty = [1,1,1], d = 3
-Output: 3
+>>> Solution().minDifficulty([1,1,1], 3)
+3
+
 Explanation: The schedule is one job per day. total difficulty will be 3.
 """
 from typing import List
 import sys
 from functools import lru_cache
+import doctest
 
 
 class Solution:
@@ -69,3 +73,4 @@ class Solution:
             return ans
 
         return dp(0, d)
+doctest.testmod()
