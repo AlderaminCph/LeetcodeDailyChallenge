@@ -53,9 +53,13 @@ class Solution:
 
         @lru_cache(None)
         def dp(index, remain_days):
-            if remain_days == 0 and index == 0 or index == n and  remain_days == 0:
+            if (remain_days == 0 and index == 0) or (
+                index == n and remain_days == 0
+            ):
                 return 0  # valid scenario
-            elif remain_days == 0 and index != n or index == n and remain_days != 0:
+            elif (remain_days == 0 and index != n) or (
+                index == n and remain_days != 0
+            ):
                 return sys.maxsize  # invalid
 
             ans = sys.maxsize
@@ -67,4 +71,6 @@ class Solution:
             return ans
 
         return dp(0, d)
+
+
 doctest.testmod()
